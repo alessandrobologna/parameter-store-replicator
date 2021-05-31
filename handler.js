@@ -13,7 +13,7 @@ const checkTarget = async (event) => {
     // check if target exists already
     return await targetSSM.getParameter({
       Name: event.detail.name,
-      WithDecryption: event.detail.type != "String"
+      WithDecryption: event.detail.type == "SecureString"
     }).promise()
   } catch (error) {
     // we will consider a ParameterNotFound response from the target a non error
@@ -28,7 +28,7 @@ const update = async (event) => {
   // get the source value
   const sourceParam = await sourceSSM.getParameter({
     Name: event.detail.name,
-    WithDecryption: event.detail.type != "String"
+    WithDecryption: event.detail.type == "SecureString"
   }).promise()
 
   const targetParam = await checkTarget(event)
