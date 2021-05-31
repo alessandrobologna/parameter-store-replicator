@@ -1,8 +1,8 @@
-service: parameter-store-replicator 
+service: parameter-store-replicator
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs12.x
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -12,11 +12,11 @@ provider:
         - "ssm:DeleteParameter"
         - "ssm:DeleteParameters"
       Resource: "*"
+  environment:
+    AWS_TARGET_REGION: ${opt:target-region}
 
 functions:
   replicate:
-    environment: 
-      AWS_TARGET_REGION: ${opt:target}
     handler: handler.replicate
     events:
       - cloudwatchEvent:
@@ -25,4 +25,3 @@ functions:
               - "aws.ssm"
             detail-type:
               - "Parameter Store Change"
-
