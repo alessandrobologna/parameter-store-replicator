@@ -16,7 +16,7 @@ provider:
 functions:
   replicate:
     environment: 
-      AWS_TARGET_REGION: ${opt:target}
+      AWS_TARGET_REGION: ${param:target}
     handler: handler.replicate
     events:
       - cloudwatchEvent:
