@@ -1,4 +1,4 @@
-service: parameter-store-replicator 
+service: ParamStoreReplicator 
 
 provider:
   name: aws
