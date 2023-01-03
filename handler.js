@@ -1,5 +1,4 @@
-const AWSXRay = require('aws-xray-sdk-core')
-const AWS = AWSXRay.captureAWS(require('aws-sdk'))
+const AWS = require('aws-sdk')
 
 const sourceSSM = new AWS.SSM({
   region: process.env.AWS_DEFAULT_REGION
@@ -33,8 +32,10 @@ const update = async (event) => {
 
   const targetParam = await checkTarget(event)
   if (!targetParam || targetParam.Parameter.Value !== sourceParam.Parameter.Value || targetParam.Parameter.Type !== sourceParam.Parameter.Type) {
-    // remove the version
+    // remove unused Keys
     delete sourceParam.Parameter.Version
+    delete sourceParam.Parameter.ARN
+    delete sourceParam.Parameter.LastModifiedDate
     // enable overwrites
     sourceParam.Parameter.Overwrite = true
     return targetSSM.putParameter(sourceParam.Parameter).promise()

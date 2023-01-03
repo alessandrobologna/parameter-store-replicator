@@ -2,7 +2,7 @@ service: parameter-store-replicator
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs16.x
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -25,4 +25,3 @@ functions:
               - "aws.ssm"
             detail-type:
               - "Parameter Store Change"
-
