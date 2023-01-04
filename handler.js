@@ -69,12 +69,16 @@ exports.replicate = async (event, context, callback) => {
   console.log(JSON.stringify(event))
   try {
     if (event.detail.operation in operations) {
-      const success = await operations[event.detail.operation](event)
-      if (success) {
-        console.log(`${event.detail.operation} result:\n${JSON.stringify(success)}`)
+      if (event.detail.name.includes('/prod/')) {
+        const success = await operations[event.detail.operation](event)
+        if (success) {
+          console.log(`${event.detail.operation} result:\n${JSON.stringify(success)}`)
+        }
+      } else {
+        console.log(`Unknown operation "${event.detail.operation}":\n ${JSON.stringify(event)}`)
       }
     } else {
-      console.log(`Unknown operation "${event.detail.operation}":\n ${JSON.stringify(event)}`)
+      console.log('Only Production Resources are allowed for Replication')
     }
   } catch (error) {
     console.log(`Operation failed for\n ${JSON.stringify(event)}\n${JSON.stringify(error)}`)
