@@ -2,7 +2,7 @@
   "name": "parameter-store-replicator",
   "version": "1.0.0",
   "description": "AWS System Manager Parameter Store cross region replicator",
-  "main": "handler.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
