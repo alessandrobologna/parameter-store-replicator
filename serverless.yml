@@ -9,6 +9,7 @@ provider:
         - "ssm:GetParameters"
         - "ssm:GetParameter"
         - "ssm:PutParameter"
+        - "ssm:GetParameterHistory"
         - "ssm:DeleteParameter"
         - "ssm:DeleteParameters"
       Resource: "*"
@@ -17,7 +18,7 @@ functions:
   replicate:
     environment: 
       AWS_TARGET_REGION: ${opt:target}
-    handler: handler.replicate
+    handler: index.handler
     events:
       - cloudwatchEvent:
           event:
