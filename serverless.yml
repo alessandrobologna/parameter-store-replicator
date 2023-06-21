@@ -2,7 +2,7 @@ service: parameter-store-replicator
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs18
   iamRoleStatements:
     - Effect: "Allow"
       Action:
